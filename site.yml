@@ -1,0 +1,31 @@
+---
+# Launch tag=test before
+  - hosts: testbed
+    become: true
+    gather_facts: false
+    tasks:
+      - name: Update cache var
+        apt: update_cache=yes cache_valid_time=2000
+        tags: test
+      - name: Copy clearwater.list
+        shell: bash -c 'echo "deb http://repo.cw-ngv.com/stable binary/" > /etc/apt/sources.list.d/clearwater.list '
+        tags: test
+      - name: Import key
+        shell: curl -L http://repo.cw-ngv.com/repo_key | sudo apt-key add -
+        tags: test
+      - name: Update cache
+        apt: update_cache=yes cache_valid_time=2000
+        tags: test
+
+      - name: create clearwater directory
+        shell: mkdir -p /etc/clearwater
+        tags: test
+
+  - include: ellis.yaml
+  - include: bono.yaml
+  - include: sprout.yaml
+  - include: homer.yaml
+  - include: homestead.yaml
+  - include: ralf.yaml
+  - include: bind.yaml
+  - include: dns.yaml

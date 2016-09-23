@@ -1,0 +1,29 @@
+---
+
+ellis: 192.166.1.177
+bono: 192.166.1.178
+sprout: 192.166.1.183
+homer: 192.166.1.179
+homestead: 192.166.1.181
+ralf: 192.166.1.182
+bind: 192.166.1.180
+odl: 192.166.1.178
+ovs: 192.166.1.178
+dns: 192.166.1.180
+
+etcd_cluster: "\"{{ellis}},{{bono}},{{sprout}},{{homer}},{{homestead}},{{ralf}}\""
+
+pub_ellis: 157.159.232.198
+pub_bono: 157.159.232.174
+pub_sprout: 157.159.232.212
+pub_homer: 157.159.232.179
+pub_homestead: 157.159.232.166
+pub_ralf: 157.159.232.165
+pub_bind: 157.159.232.152
+pub_odl: 157.159.232.198
+pub_ovs: 157.159.232.198
+
+secret: "secret"
+domain_name: "jaafar.com"
+
+shared_config: "# Deployment definitions \n home_domain={{domain_name}} \n sprout_hostname=sprout.{{domain_name}} \n chronos_hostname={{sprout}}:7253 \n hs_hostname=homestead.{{domain_name}}:8888 \n hs_provisioning_hostname=homestead.{{domain_name}}:8889 \n ralf_hostname=ralf.{{domain_name}}:10888 \n xdms_hostname=homer.{{domain_name}}:7888 \n   smtp_username=username \n smtp_password=password \n email_recovery_sender=TATA@TOTO.org \n signup_key={{secret}} \n turn_workaround={{secret}} \n ellis_api_key={{secret}} \n ellis_cookie_key={{secret}}"

@@ -1,0 +1,16 @@
+
+- name: setup bind
+  hosts: testbed
+  become: true  #task file for Dns setup
+  tasks:
+    - name: local DNS configuration
+      shell: bash -c 'echo "nameserver {{dns}}" > /etc/dnsmasq.resolv.conf' ; bash -c 'echo "RESOLV_CONF=/etc/dnsmasq.resolv.conf" >> /etc/default/dnsmasq'
+      tags: dns
+
+    - name: install dnsmasq
+      apt: name=dnsmasq state=present
+      tags: dns
+          # Example action to restart service dnsmasq, in all cases
+    - name: ensure dnmasq started
+      service: name=dnsmasq state=restarted
+      tags: dns

@@ -1,0 +1,51 @@
+---
+  - hosts: testbed
+    become: true
+    tasks:
+      - name: verify clearwater-etcd is running
+        command: service clearwater-etcd status
+
+  - hosts: ellis
+    become: true
+    tasks:
+      - name: verify ellis is running
+        command: service ellis status
+      - name: verify ellis is listening on port 80
+        wait_for: port=80 timeout=1
+
+
+  - hosts: bono
+    become: true
+    tasks:
+      - name: verify bono is running
+        command: service bono status
+
+  - hosts: sprout
+    become: true
+    tasks:
+      - name: verify sprout is running
+        command: service sprout status
+
+  - hosts: homer
+    become: true
+    tasks:
+      - name: verify homer is running
+        command: service homer status
+
+  - hosts: homestead
+    become: true
+    tasks:
+      - name: verify homestead is running
+        command: service homestead status
+
+  - hosts: ralf
+    become: true
+    tasks:
+      - name: verify ralf is running
+        command: service ralf status
+
+  - hosts: bind
+    become: true
+    tasks:
+      - name: verify bind9 is running
+        command: service bind9 status

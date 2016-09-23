@@ -1,0 +1,34 @@
+---
+# tasks file for bind
+- name: Update cache var
+  apt: update_cache=yes cache_valid_time=20000
+- name: Install bind9
+  apt: name=bind9 state=present
+
+- name: Changing host name
+  hostname: name=ns
+  tags: name
+
+- name: bind9 Configuration
+  copy: src=/home/jaafar/ansible/new_clearwater/config_files/db.jaafar.com dest=/etc/bind/db.jaafar.com owner=root group=root mode=644
+
+
+- name: bind9 Configuration
+  copy: src=/home/jaafar/ansible/new_clearwater/config_files/named.conf dest=/etc/bind/named.conf owner=root group=root mode=644
+
+- name: bind9 Configuration
+  copy: src=/home/jaafar/ansible/new_clearwater/config_files/resolv.conf dest=/etc/ owner=root group=root mode=644
+
+
+- name: bind9 Configuration
+  copy: src=/home/jaafar/ansible/new_clearwater/config_files/resolv.conf dest=/etc/resolvconf/resolv.conf.d/head owner=root group=root mode=644
+
+
+- name: bind9 Configuration
+  copy: src=/home/jaafar/ansible/new_clearwater/config_files/named.conf.options dest=/etc/bind/named.conf.options owner=root group=root mode=644
+
+- name: bind9 Configuration
+  copy: src=/home/jaafar/ansible/new_clearwater/config_files/named.conf.local dest=/etc/bind/named.conf.local owner=root group=root mode=644
+
+- name: restart bind9 service
+  service: name=bind9 state=restarted

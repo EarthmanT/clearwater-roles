@@ -1,0 +1,6 @@
+
+  - name: Setup ellis
+    hosts: ellis
+    become: true
+    roles:
+      - ellis

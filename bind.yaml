@@ -1,0 +1,6 @@
+
+  - name: setup bind
+    hosts: bind
+    become: true
+    roles:
+      - role: bind

@@ -1,0 +1,5 @@
+- name: setup clearwater ralf
+  hosts: ralf
+  become: true
+  roles:
+    - role: ralf

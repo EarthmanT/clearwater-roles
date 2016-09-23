@@ -1,0 +1,5 @@
+- name: setup clearwater homestead
+  hosts: homestead
+  become: true
+  roles:
+    - role: homestead

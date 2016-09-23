@@ -1,0 +1,23 @@
+---
+# tasks file for bono
+
+- name: Configuration locale de clearwater
+  shell: mkdir -p /etc/clearwater; bash -c ' echo -e "local_ip={{ansible_eth0.ipv4.address}}\npublic_ip={{pub_ralf}}\npublic_hostname=ellis.{{domain_name}}\netcd_cluster=\"{{etcd_cluster}}\"" > /etc/clearwater/local_config'
+  tags: test
+
+- name: Open up ports
+  shell: ufw --force enable ; ufw allow 22/tcp ; ufw allow 2380/tcp ; ufw allow 161:162/udp ; ufw allow 4000/tcp ; ufw allow 3478 ; ufw allow 10888/tcp ; ufw allow 7253/tcp ; ufw allow 11211/tcp
+  tags: test
+
+- name: install Ralf packets
+  apt: name=ralf force=yes state=present
+  tags: test
+- name: install clearwater-config-manager
+  apt: name=clearwater-management force=yes state=present
+  tags: test
+- name: wait for etcd
+  command: /usr/share/clearwater/clearwater-etcd/scripts/wait_for_etcd
+
+
+- name: Chronos configuration
+  shell:  mkdir -p /etc/chronos ;  bash -c ' echo -e "[http] \n   bind-address = {{ralf}}  \n   bind-port = 7253 \n  threads = 50 \n   [logging] \n   folder = /var/log/chronos \n   level = 2 \n   [alarms] \n  enabled = true \n   [exceptions] \n   max_ttl = 600 \n   [dns] \n   server=8.8.8.8" > /etc/chronos/chronos.conf'

@@ -1,0 +1,43 @@
+---
+# tasks file for ellis
+
+- name: Configuration locale de clearwater
+  shell: sudo bash -c ' echo -e "local_ip={{ansible_eth0.ipv4.address}}\npublic_ip={{pub_ellis}}\npublic_hostname=ellis.{{domain_name}}\netcd_cluster=\"{{etcd_cluster}}\"" > /etc/clearwater/local_config'
+  tags: test
+
+- name: Configurtion globale
+  copy: content="{{shared_config}}" dest=/etc/clearwater/shared_config
+  tags: test
+
+
+- name: Open up port
+  shell: ufw --force enable ; ufw allow 22/tcp ; ufw allow 2380/tcp ; ufw allow 161:162/udp ; ufw allow 4000/tcp ; ufw allow 10888/tcp ; ufw allow 7253/tcp ; ufw allow 11211/tcp ; ufw allow  80/tcp ; ufw allow  6633/tcp
+  tags: test
+
+
+
+- name: install ellis packets
+  apt: name=ellis force=yes state=present
+  tags: test
+- name: install clearwater-config-manager
+  apt: name=clearwater-config-manager force=yes state=present
+  tags: test
+- name: ensure ellis is started
+  service: name=ellis state=started enabled=yes
+
+# Why clearwater etcd is not working ?
+- name: ensure clearwater-etcd is started
+  service: name=clearwater-etcd state=started enabled=yes
+
+- name: wait for etcd
+  command: /usr/share/clearwater/clearwater-etcd/scripts/wait_for_etcd
+
+- name: upload_shared_config
+  command: /usr/share/clearwater/clearwater-config-manager/scripts/upload_shared_config
+
+
+- name: create number
+  shell: bash -c 'echo -e "export PATH=/usr/share/clearwater/ellis/env/bin:$PATH \n cd /usr/share/clearwater/ellis/src/metaswitch/ellis/tools/ \n python create_numbers.py --start 6505550000 --count 1000" > create_number.py'
+
+- name: Create numbers in Ellis
+  shell: chmod +x create_number.py ; ./create_number.py

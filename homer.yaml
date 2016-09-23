@@ -1,0 +1,6 @@
+
+- name: setup clearwater homer
+  hosts: homer
+  become: true
+  roles:
+    - role: homer

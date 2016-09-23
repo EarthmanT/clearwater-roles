@@ -1,0 +1,21 @@
+---
+# tasks file for bono
+
+- name: Configuration locale de clearwater
+  shell: sudo bash -c ' echo -e "local_ip={{ansible_eth0.ipv4.address}}\npublic_ip={{pub_homer}}\npublic_hostname=homer.{{domain_name}}\netcd_cluster=\"{{etcd_cluster}}\"" > /etc/clearwater/local_config'
+  tags: test
+
+- name: Open up ports
+  shell: ufw --force enable ; ufw allow 22/tcp ; ufw allow 2380/tcp ; ufw allow 161:162/udp ; ufw allow 4000/tcp ; ufw allow 7888 ; ufw allow 7000
+  tags: test
+
+- name: install homer packets
+  apt: name=homer force=yes state=present
+  tags: test
+
+- name: install clearwater-config-manager
+  apt: name=clearwater-management force=yes state=present
+  tags: test
+
+- name: wait for etcd
+  command: /usr/share/clearwater/clearwater-etcd/scripts/wait_for_etcd

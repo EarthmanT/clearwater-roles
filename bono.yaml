@@ -1,0 +1,6 @@
+
+  - name: Setup bono
+    hosts: bono
+    become: true
+    roles:
+      - bono

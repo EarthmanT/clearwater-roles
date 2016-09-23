@@ -1,0 +1,6 @@
+
+  - name: Setup sprout
+    hosts: sprout
+    become: true
+    roles:
+      - sprout

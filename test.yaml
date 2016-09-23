@@ -1,0 +1,7 @@
+---
+  - hosts: testbed
+    become: true
+    gather_facts: false
+    tasks:
+      - name: remove dnmasq
+        apt: name=dnsmasq state=absent
