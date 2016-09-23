@@ -26,4 +26,4 @@ pub_ovs: 157.159.232.198
 secret: "secret"
 domain_name: "jaafar.com"
 
-shared_config: "# Deployment definitions \n home_domain={{domain_name}} \n sprout_hostname=sprout.{{domain_name}} \n chronos_hostname={{sprout}}:7253 \n hs_hostname=homestead.{{domain_name}}:8888 \n hs_provisioning_hostname=homestead.{{domain_name}}:8889 \n ralf_hostname=ralf.{{domain_name}}:10888 \n xdms_hostname=homer.{{domain_name}}:7888 \n   smtp_username=username \n smtp_password=password \n email_recovery_sender=TATA@TOTO.org \n signup_key={{secret}} \n turn_workaround={{secret}} \n ellis_api_key={{secret}} \n ellis_cookie_key={{secret}}"
+shared_config: "# Deployment definitions\nhome_domain={{domain_name}}\nsprout_hostname=sprout.{{domain_name}}\nchronos_hostname={{sprout}}:7253\nhs_hostname=homestead.{{domain_name}}:8888\nhs_provisioning_hostname=homestead.{{domain_name}}:8889\nralf_hostname=ralf.{{domain_name}}:10888\nxdms_hostname=homer.{{domain_name}}:7888\nsmtp_username=username\nsmtp_password=password\nemail_recovery_sender=TATA@TOTO.org\nsignup_key={{secret}}\nturn_workaround={{secret}}\nellis_api_key={{secret}}\nellis_cookie_key={{secret}}"

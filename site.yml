@@ -21,6 +21,10 @@
         shell: mkdir -p /etc/clearwater
         tags: test
 
+      - name: Open up ports
+        shell: ufw --force enable ; ufw allow 22/tcp ; ufw allow 2380/tcp ; ufw allow 161:162/udp ; ufw allow 4000/tcp ; ufw allow 443/tcp; ufw allow 80/tcp ; ufw allow 6633
+        tags: test
+
   - include: ellis.yaml
   - include: bono.yaml
   - include: sprout.yaml

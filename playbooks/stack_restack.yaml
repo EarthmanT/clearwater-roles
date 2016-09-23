@@ -3,7 +3,7 @@
   - hosts: ellis
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - ellis
           - clearwater-etcd
@@ -12,7 +12,7 @@
   - hosts: bono
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - bono
           - clearwater-etcd
@@ -22,7 +22,7 @@
   - hosts: sprout
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - sprout
           - clearwater-etcd
@@ -33,7 +33,7 @@
   - hosts: homer
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - homer
           - clearwater-etcd
@@ -43,7 +43,7 @@
   - hosts: homestead
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - homestead
           - clearwater-etcd
@@ -52,7 +52,7 @@
   - hosts: ralf
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - ralf
           - clearwater-etcd
@@ -61,7 +61,7 @@
   - hosts: bind
     become: true
     tasks:
-      - service: name={{with_items}} state=stopped
+      - service: name={{item}} state=stopped
         with_items:
           - bind9
 
@@ -71,7 +71,7 @@
   - hosts: ellis
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - ellis
           - clearwater-etcd
@@ -80,7 +80,7 @@
   - hosts: bono
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - bono
           - clearwater-etcd
@@ -90,7 +90,7 @@
   - hosts: sprout
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - sprout
           - clearwater-etcd
@@ -101,7 +101,7 @@
   - hosts: homer
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - homer
           - clearwater-etcd
@@ -111,7 +111,7 @@
   - hosts: homestead
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - homestead
           - clearwater-etcd
@@ -120,7 +120,7 @@
   - hosts: ralf
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - ralf
           - clearwater-etcd
@@ -129,6 +129,6 @@
   - hosts: bind
     become: true
     tasks:
-      - service: name={{with_items}} state=started
+      - service: name={{item}} state=started
         with_items:
           - bind9

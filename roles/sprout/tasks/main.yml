@@ -5,8 +5,8 @@
   shell: mkdir -p /etc/clearwater; bash -c ' echo -e "local_ip={{ansible_eth0.ipv4.address}} \n public_ip={{pub_sprout}} \n public_hostname=sprout.{{domain_name}} \n etcd_cluster={{etcd_cluster}}" > /etc/clearwater/local_config'
   tags: test
 - name: port
-  shell: ufw --force enable ; ufw allow 22/tcp ; ufw allow 2380/tcp ; ufw allow 161:162/udp ; ufw allow 4000/tcp ; ufw allow 5054/tcp ; ufw allow 5062/tcp ; ufw allow 11211/tcp ; ufw allow 7253/tcp ; ufw allow 7000/tcp ; ufw allow 9160/tcp ; ufw allow 9888 ; ufw allow 443 ; ufw allow  6633/tcp
-  tags: test
+  shell: ufw --force enable ; ufw allow 22/tcp ; ufw allow 2380/tcp ; ufw allow 161:162/udp ; ufw allow 4000/tcp ; ufw allow 5054/tcp ; ufw allow 5052/tcp ; ufw allow 11211/tcp ; ufw allow 7253/tcp ; ufw allow 7000/tcp ; ufw allow 9160/tcp ; ufw allow 9888 ; ufw allow 443 ; ufw allow  6633/tcp
+  tags: test, portsprout
 
 - name: install sprout packets
   apt: name=sprout force=yes state=present
@@ -17,10 +17,5 @@
 - name: wait for etcd
   command: /usr/share/clearwater/clearwater-etcd/scripts/wait_for_etcd
 
-- name: upload_shared_config
-  command: /usr/share/clearwater/clearwater-config-manager/scripts/upload_shared_config
-
-
-
 - name: Chronos configuration
-  shell:  mkdir -p /etc/chronos ;  bash -c ' echo -e "[http] \n   bind-address = {{sprout}}  \n   bind-port = 7253 \n  threads = 50 \n   [logging] \n   folder = /var/log/chronos \n   level = 2 \n   [alarms] \n  enabled = true \n   [exceptions] \n   max_ttl = 600 \n   [dns] \n   server=8.8.8.8" > /etc/chronos/chronos.conf'
+  shell:  mkdir -p /etc/chronos ;  bash -c ' echo -e "[http]\nbind-address = {{sprout}}\nbind-port = 7253\nthreads = 50\n[logging]\nfolder = /var/log/chronos\nlevel = 2\n[alarms]\nenabled = true\n[exceptions]\nmax_ttl = 600\n" > /etc/chronos/chronos.conf'
