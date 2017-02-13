@@ -1,0 +1,4 @@
+ssh
+sudo hostnamectl set-hostname <new_hostname>
+then exit
+re ssh
