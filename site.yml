@@ -1,6 +1,6 @@
 ---
 # Launch tag=test before
-  - hosts: testbed
+  - hosts: ellis # CHANGED: from testbed to ellis
     become: true
     gather_facts: false
     tasks:
@@ -28,7 +28,9 @@
   - include: ellis.yaml
   - include: bono.yaml
   - include: sprout.yaml
+
   - include: homer.yaml
+
   - include: homestead.yaml
   - include: ralf.yaml
   - include: bind.yaml
